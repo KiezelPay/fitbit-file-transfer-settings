@@ -1,0 +1,19 @@
+{
+  "fitbit": {
+    "appUUID": "fb09d37e-4f08-467d-a038-3834b8bd317b",
+    "appType": "app",
+    "appDisplayName": "file-transfer-settings",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#607d8b",
+    "requestedPermissions": [],
+    "buildTargets": [
+      "higgs",
+      "meson"
+    ],
+    "i18n": {
+      "en": {
+        "name": "file-transfer-settings"
+      }
+    }
+  }
+}
