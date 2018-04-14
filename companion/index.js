@@ -22,7 +22,7 @@ settingsStorage.onchange = evt => {
   sendSettingsToWatch();
 };
 
-// Restore any previously saved settings and send to the device
+// Restore any previously saved settings
 function restoreSettings() {
   for (let index = 0; index < settingsStorage.length; index++) {
     let key = settingsStorage.key(index);

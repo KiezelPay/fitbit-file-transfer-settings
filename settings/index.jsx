@@ -1,6 +1,4 @@
 function mySettings(props) {
-  const { settings, settingsStorage } = props;
-
   return (
     <Page>
       <Section

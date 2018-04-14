@@ -48,14 +48,11 @@ loadSettings();
 function processInbox()
 {
   let fileName;
+  while (fileName = inbox.nextFile()) {
+    console.log("File received: " + fileName);
 
-  do {
-    if (fileName = inbox.nextFile()) {
-      console.log("File received: " + fileName);
-
-      if (fileName == 'settings.cbor') {
-          loadSettings();
-      }
+    if (fileName == 'settings.cbor') {
+        loadSettings();
     }
-  } while (fileName);
+  }
 };
