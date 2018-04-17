@@ -16,7 +16,8 @@ function mySettings(props) {
         />
       </Section>
       <Section
-        title={<Text bold align="center">Date Color</Text>}>
+        title={<Text bold align="center">Date Settings</Text>}>
+        <Toggle settingsKey="showDate" label="Show date" />
         <ColorSelect
           settingsKey="dateColor"
           colors={[

@@ -6,7 +6,8 @@ import * as cbor from 'cbor';
 
 let defaultSettings = {
   timeColor: '#FFFFFF',
-  dateColor: '#FFFFFF'
+  dateColor: '#FFFFFF',
+  showDate: false
 };
 let settings = {};
 
@@ -55,6 +56,7 @@ function mergeWithDefaultSettings() {
 function applySettings() {
   clockText.style.fill = settings.timeColor;
   dateText.style.fill = settings.dateColor;
+  dateText.style.display = (settings.showDate) ? 'inline' : 'none';
 }
 
 //load stored settings if any at startup
