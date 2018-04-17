@@ -29,6 +29,15 @@ function mySettings(props) {
             {color: "plum"}
           ]}
         />
+        <Select
+          label={`Selection`}
+          settingsKey="dateFormat"
+          options={[
+            {name:"dd-mm-yyyy"},
+            {name:"mm-dd-yyyy"},
+            {name:"yyyy-mm-dd"}
+          ]}
+        />
       </Section>
     </Page>);
 }

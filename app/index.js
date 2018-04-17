@@ -7,7 +7,8 @@ import * as cbor from 'cbor';
 let defaultSettings = {
   timeColor: '#FFFFFF',
   dateColor: '#FFFFFF',
-  showDate: false
+  showDate: false,
+  dateFormat: {"values":[{"name":"dd-mm-yyyy"}]}    //same format as returned by settings page
 };
 let settings = {};
 
@@ -20,7 +21,12 @@ clock.granularity = 'minutes';
 
 function setTime(date) {
   clockText.text = ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2);
-  dateText.text = (1900 + date.getYear()) + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDay()).slice(-2);
+  
+  let dateAsText = settings.dateFormat ? settings.dateFormat.values[0].name : defaultSettings.dateFormat.values[0].name; 
+  dateAsText = dateAsText.replace('dd', ("0" + date.getDate()).slice(-2));
+  dateAsText = dateAsText.replace('mm', ("0" + (date.getMonth() + 1)).slice(-2));
+  dateAsText = dateAsText.replace('yyyy', (1900 + date.getYear()));
+  dateText.text = dateAsText;
 }
 
 clock.ontick = (evt) => setTime(evt.date);
@@ -32,11 +38,13 @@ function loadSettings()
 {
   try {
     settings = readFileSync("settings.cbor", "cbor");
+    console.log(JSON.stringify(settings));
     mergeWithDefaultSettings();
     
     console.log('Applying settings from file...');
     applySettings();
   } catch (e) {
+    console.log(e);
     console.log('No settings found, fresh install, applying default settings...');
     
     //apply default settings
@@ -57,6 +65,7 @@ function applySettings() {
   clockText.style.fill = settings.timeColor;
   dateText.style.fill = settings.dateColor;
   dateText.style.display = (settings.showDate) ? 'inline' : 'none';
+  setTime(new Date());
 }
 
 //load stored settings if any at startup
