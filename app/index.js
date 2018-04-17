@@ -8,9 +8,9 @@ let defaultSettings = {
   timeColor: '#FFFFFF',
   dateColor: '#FFFFFF',
   showDate: false,
-  dateFormat: {"values":[{"name":"dd-mm-yyyy"}]}    //same format as returned by settings page
+  dateFormat: "dd-mm-yyyy"
 };
-let settings = {};
+let settings = defaultSettings;
 
 let clockText = document.getElementById("clockText");
 let dateText = document.getElementById("dateText");
@@ -22,7 +22,7 @@ clock.granularity = 'minutes';
 function setTime(date) {
   clockText.text = ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2);
   
-  let dateAsText = settings.dateFormat ? settings.dateFormat.values[0].name : defaultSettings.dateFormat.values[0].name; 
+  let dateAsText = settings.dateFormat; 
   dateAsText = dateAsText.replace('dd', ("0" + date.getDate()).slice(-2));
   dateAsText = dateAsText.replace('mm', ("0" + (date.getMonth() + 1)).slice(-2));
   dateAsText = dateAsText.replace('yyyy', (1900 + date.getYear()));
@@ -38,18 +38,23 @@ function loadSettings()
 {
   try {
     settings = readFileSync("settings.cbor", "cbor");
-    console.log(JSON.stringify(settings));
+    transformSettings();
     mergeWithDefaultSettings();
-    
-    console.log('Applying settings from file...');
-    applySettings();
   } catch (e) {
-    console.log(e);
     console.log('No settings found, fresh install, applying default settings...');
     
     //apply default settings
     settings = defaultSettings;
-    applySettings();
+  }
+  
+  console.log('Applying settings: ' + JSON.stringify(settings));
+  applySettings();
+}
+
+function transformSettings() {
+  //change all settings you want in another format as sent by the companion here
+  if (settings.dateFormat) {
+    settings.dateFormat = settings.dateFormat.values[0].name;
   }
 }
 
