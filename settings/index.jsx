@@ -15,6 +15,20 @@ function mySettings(props) {
           ]}
         />
       </Section>
+      <Section
+        title={<Text bold align="center">Date Color</Text>}>
+        <ColorSelect
+          settingsKey="dateColor"
+          colors={[
+            {color: "tomato"},
+            {color: "sandybrown"},
+            {color: "#FFFF00"},
+            {color: "#00FFFF"},
+            {color: "deepskyblue"},
+            {color: "plum"}
+          ]}
+        />
+      </Section>
     </Page>);
 }
 

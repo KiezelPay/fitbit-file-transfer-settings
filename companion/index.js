@@ -27,7 +27,13 @@ function restoreSettings() {
   for (let index = 0; index < settingsStorage.length; index++) {
     let key = settingsStorage.key(index);
     if (key) {
-      settings[key] = JSON.parse(settingsStorage.getItem(key));
+      var value = settingsStorage.getItem(key);
+      try {
+        settings[key] = JSON.parse(value);
+      }
+      catch(ex) {
+        settings[key] = value;
+      }
     }
   }
 }
